@@ -18,7 +18,7 @@ class AES_Decryptor():
     def decrypt(self) -> str:
         AES_cipher = AES.new(self.key, AES.MODE_CBC, self.IV)
         decrypted_data = AES_cipher.decrypt(self.encrypted_data)
-        return decrypted_data
+        return self.unbox_PKCS5Padding(decrypted_data)
 
     def box_PKCS5Padding(self, bytes_object:bytes, block_size=16) -> bytes:
         """Block size: 128 bit / 8 => 16 bytes
