@@ -4,11 +4,11 @@ import argparse
 
 class AES_Decryptor():
 
-    def __init__(self, IV:str, key:str, encrypted_data:str, modes_of_operations:int):
+    def __init__(self, IV:str, key:str, encrypted_data:str, mode_of_operation:int):
         self.IV = IV
         self.key = key
         self.encrypted_data = encrypted_data
-        self.modes_of_operations = modes_of_operations
+        self.mode_of_operation = mode_of_operation
     
     def base64_decode(self):
         self.IV = base64.urlsafe_b64decode(self.IV)
@@ -16,7 +16,7 @@ class AES_Decryptor():
         self.encrypted_data = base64.urlsafe_b64decode(self.encrypted_data)
     
     def decrypt(self) -> str:
-        AES_cipher = AES.new(self.key, AES.MODE_CBC, self.IV)
+        AES_cipher = AES.new(self.key, self.mode_of_operation, self.IV)
         decrypted_data = AES_cipher.decrypt(self.encrypted_data)
         return self.unbox_PKCS5Padding(decrypted_data)
 
