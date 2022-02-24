@@ -15,7 +15,7 @@ class AES_Decryptor():
         self.key = base64.urlsafe_b64decode(self.key)
         self.encrypted_data = base64.urlsafe_b64decode(self.encrypted_data)
     
-    def decrypt(self) -> str:
+    def decrypt(self) -> bytes:
         AES_cipher = AES.new(self.key, self.mode_of_operation, self.IV)
         decrypted_data = AES_cipher.decrypt(self.encrypted_data)
         return self.unbox_PKCS5Padding(decrypted_data)
