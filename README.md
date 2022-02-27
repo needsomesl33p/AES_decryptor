@@ -1,6 +1,6 @@
 # AES_decryptor
 
-It only works with `CBC` block cipher operation mode. Also IV have to be provided.
+It only works with `CBC` block cipher operation mode. Also IV has to be provided.
 
 ## Usage:
 
