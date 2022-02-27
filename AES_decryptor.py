@@ -18,9 +18,9 @@ class AES_Decryptor():
     def decrypt(self) -> bytes:
         AES_cipher = AES.new(self.key, self.mode_of_operation, self.IV)
         decrypted_data = AES_cipher.decrypt(self.encrypted_data)
-        return self.unbox_PKCS5Padding(decrypted_data)
+        return self.unbox_PKCS7Padding(decrypted_data)
 
-    def box_PKCS5Padding(self, bytes_object:bytes, block_size=16) -> bytes:
+    def box_PKCS7Padding(self, bytes_object:bytes, block_size=16) -> bytes:
         """Block size: 128 bit / 8 => 16 bytes
         3 bytes: FDFDFD           --> FDFDFD0505050505
         7 bytes: FDFDFDFDFDFDFD   --> FDFDFDFDFDFDFD01"""
@@ -28,7 +28,7 @@ class AES_Decryptor():
         padding_byte = bytes(chr(padding_multiplier), "UTF-8")
         return bytes_object + padding_multiplier * padding_byte
 
-    def unbox_PKCS5Padding(self, byte_object) -> bytes:
+    def unbox_PKCS7Padding(self, byte_object) -> bytes:
         padding_multiplier = byte_object[-1]
         return byte_object[0:-padding_multiplier]
 
